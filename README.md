@@ -2,7 +2,19 @@
 
 A modern, responsive weather application built with Next.js, Laravel, and the OpenWeatherMap API. This application provides real-time weather data and forecasts with a beautiful, user-friendly interface.
 
-![Weather App Screenshot](screenshots/weather-app.png)
+## Screenshots
+
+### Main Weather View
+![Main Weather View](screenshots/main-view.png)
+
+### City Search
+![City Search](screenshots/search.png)
+
+### Weather Forecast
+![Weather Forecast](screenshots/forecast.png)
+
+### Unit Toggle
+![Unit Toggle](screenshots/unit-toggle.png)
 
 ## Features
 

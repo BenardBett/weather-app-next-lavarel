@@ -10,7 +10,7 @@ interface ForecastProps {
 
 export const Forecast: React.FC<ForecastProps> = ({ forecastData, units }) => {
     // Group forecast by day
-    const dailyForecast = forecastData.list.reduce((acc: { [key: string]: any[] }, item) => {
+    const dailyForecast = forecastData.list.reduce((acc: { [key: string]: unknown[] }, item) => {
         const date = new Date(item.dt * 1000).toLocaleDateString('en-US', { weekday: 'long' });
         if (!acc[date]) {
             acc[date] = [];
