@@ -15,7 +15,9 @@ export default function Home() {
     const [units, setUnits] = useState<'metric' | 'imperial'>('metric');
     const [suggestions, setSuggestions] = useState<City[]>([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const searchTimeout = useRef<NodeJS.Timeout>();
+    // const searchTimeout = useRef<NodeJS.Timeout>();
+    const searchTimeout = useRef<NodeJS.Timeout | null>(null);
+
     const suggestionsRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
