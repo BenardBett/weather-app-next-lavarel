@@ -19,6 +19,18 @@ export const Forecast: React.FC<ForecastProps> = ({ forecastData, units }) => {
         return acc;
     }, {});
 
+
+    try {
+        // something
+      } catch (error) {
+        if (error instanceof Error) {
+          console.log(error.message);
+        } else {
+          console.log('An unknown error occurred');
+        }
+      }
+      
+
     // Get the next 3 days
     const nextThreeDays = Object.entries(dailyForecast).slice(0, 3);
 
