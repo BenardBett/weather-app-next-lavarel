@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://weather-app-next-lavarel.onrender.com'],
+    'allowed_origins' => ['https://weather-app-next-lavarel-1.onrender.com'],
 
     'allowed_origins_patterns' => [],
 
