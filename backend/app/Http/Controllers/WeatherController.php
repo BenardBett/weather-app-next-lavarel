@@ -48,36 +48,84 @@ class WeatherController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
+    // public function getWeather(Request $request)
+    // {
+    //     $city = $request->query('city', 'London');
+    //     $units = $request->query('units', 'metric');
+    //     $apiKey = env('OPENWEATHER_API_KEY');
+        
+    //     try {
+    //         $response = Http::get("https://api.openweathermap.org/data/2.5/weather", [
+    //             'q' => $city,
+    //             'appid' => $apiKey,
+    //             'units' => $units
+    //         ]);
+
+    //         if ($response->successful()) {
+    //             return response()->json($response->json());
+    //         }
+
+    //         return response()->json([
+    //             'error' => 'Failed to fetch weather data',
+    //             'message' => $response->json()['message'] ?? 'Unknown error'
+    //         ], $response->status());
+
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'error' => 'Server error',
+    //             'message' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
+
+
+
     public function getWeather(Request $request)
-    {
+{
+    try {
         $city = $request->query('city', 'London');
         $units = $request->query('units', 'metric');
         $apiKey = env('OPENWEATHER_API_KEY');
         
-        try {
-            $response = Http::get("https://api.openweathermap.org/data/2.5/weather", [
-                'q' => $city,
-                'appid' => $apiKey,
-                'units' => $units
-            ]);
-
-            if ($response->successful()) {
-                return response()->json($response->json());
-            }
-
+        if (!$apiKey) {
             return response()->json([
-                'error' => 'Failed to fetch weather data',
-                'message' => $response->json()['message'] ?? 'Unknown error'
-            ], $response->status());
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => 'Server error',
-                'message' => $e->getMessage()
+                'error' => 'API key not configured',
+                'message' => 'OpenWeather API key is missing'
             ], 500);
         }
-    }
 
+        $response = Http::get("https://api.openweathermap.org/data/2.5/weather", [
+            'q' => $city,
+            'appid' => $apiKey,
+            'units' => $units
+        ]);
+
+        if ($response->successful()) {
+            return response()->json($response->json());
+        }
+
+        \Log::error('Weather API Error', [
+            'status' => $response->status(),
+            'response' => $response->json()
+        ]);
+
+        return response()->json([
+            'error' => 'Failed to fetch weather data',
+            'message' => $response->json()['message'] ?? 'Unknown error'
+        ], $response->status());
+
+    } catch (\Exception $e) {
+        \Log::error('Weather API Exception', [
+            'message' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ]);
+
+        return response()->json([
+            'error' => 'Server error',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
     /**
      * Get forecast data for a specific city
      *

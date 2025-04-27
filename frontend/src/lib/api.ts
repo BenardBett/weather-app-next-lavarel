@@ -16,12 +16,27 @@ export async function searchCities(query: string): Promise<City[]> {
     return response.json();
 }
 
+// export async function getWeather(city: string, units: 'metric' | 'imperial' = 'metric') {
+//     const response = await fetch(`${API_BASE_URL}/weather?city=${encodeURIComponent(city)}&units=${units}`);
+//     if (!response.ok) {
+//         throw new Error('Failed to fetch weather data');
+//     }
+//     return response.json();
+// }
+
 export async function getWeather(city: string, units: 'metric' | 'imperial' = 'metric') {
-    const response = await fetch(`${API_BASE_URL}/weather?city=${encodeURIComponent(city)}&units=${units}`);
-    if (!response.ok) {
-        throw new Error('Failed to fetch weather data');
+    try {
+        console.log('Fetching weather from:', `${API_BASE_URL}/weather`);
+        const response = await fetch(`${API_BASE_URL}/weather?city=${encodeURIComponent(city)}&units=${units}`);
+        if (!response.ok) {
+            console.error('Weather fetch failed:', response.status, response.statusText);
+            throw new Error('Failed to fetch weather data');
+        }
+        return response.json();
+    } catch (error) {
+        console.error('Weather fetch error:', error);
+        throw error;
     }
-    return response.json();
 }
 
 export async function getForecast(city: string, units: 'metric' | 'imperial' = 'metric') {
