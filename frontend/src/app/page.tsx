@@ -5,6 +5,18 @@ import { WeatherCard } from '../components/WeatherCard';
 import { Forecast } from '../components/Forecast';
 import { getWeather, getForecast, searchCities, City } from '../lib/api';
 import { WeatherData, ForecastData } from '../types/weather';
+import { ErrorBoundary } from 'react-error-boundary';
+
+function ErrorFallback({error}: {error: Error}) {
+    return (
+        <div className="bg-red-100/90 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 backdrop-blur-sm">
+            <p>Something went wrong:</p>
+            <pre>{error.message}</pre>
+        </div>
+    );
+}
+
+
 
 export default function Home() {
     const [city, setCity] = useState('London');
@@ -114,6 +126,7 @@ export default function Home() {
     };
 
     return (
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
         <main className={`min-h-screen ${getBackgroundClass()} transition-all duration-500 py-8 px-4`}>
             <div className="max-w-4xl mx-auto">
                 <div className="flex justify-between items-center mb-8">
@@ -173,5 +186,6 @@ export default function Home() {
                 {forecastData && <Forecast forecastData={forecastData} units={units} />}
             </div>
         </main>
+        </ErrorBoundary>
     );
 }
