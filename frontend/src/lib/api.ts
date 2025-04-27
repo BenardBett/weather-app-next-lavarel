@@ -1,4 +1,7 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 
+  (process.env.NODE_ENV === 'production' 
+    ? 'https://weather-app-next-lavarel-1.onrender.com/api' 
+    : 'http://localhost:8002/api');
 
 export interface City {
     name: string;
@@ -16,13 +19,6 @@ export async function searchCities(query: string): Promise<City[]> {
     return response.json();
 }
 
-// export async function getWeather(city: string, units: 'metric' | 'imperial' = 'metric') {
-//     const response = await fetch(`${API_BASE_URL}/weather?city=${encodeURIComponent(city)}&units=${units}`);
-//     if (!response.ok) {
-//         throw new Error('Failed to fetch weather data');
-//     }
-//     return response.json();
-// }
 export async function getWeather(city: string, units: 'metric' | 'imperial' = 'metric') {
     try {
         console.log('Fetching weather for:', city);
@@ -69,4 +65,4 @@ export async function getForecast(city: string, units: 'metric' | 'imperial' = '
         console.error('Forecast fetch error:', error);
         throw error;
     }
-} 
+}
