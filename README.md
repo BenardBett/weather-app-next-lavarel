@@ -5,16 +5,16 @@ A modern, responsive weather application built with Next.js, Laravel, and the Op
 ## Screenshots
 
 ### Main Weather View
-![Main Weather View](screenshots/main-view.png)
+![Main Weather View](images/main-view.png)
 
 ### City Search
-![City Search](screenshots/search.png)
+![City Search](images/search.png)
 
 ### Weather Forecast
-![Weather Forecast](screenshots/forecast.png)
+![Weather Forecast](images/forecast.png)
 
 ### Unit Toggle
-![Unit Toggle](screenshots/unit-toggle.png)
+![Unit Toggle](images/unit-toggle.png)
 
 ## Features
 
